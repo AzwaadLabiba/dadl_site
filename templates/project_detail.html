@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Copy your head from single_page.html -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} - DADL Lab</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.3/css/academicons.min.css">
+
+    <style>
+        :root {
+            --dadl-primary: #420303;
+            --dadl-primary-dark: #330202;
+            --dadl-primary-light: #661010;
+            --dadl-text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        .navbar {
+            background-color: var(--dadl-primary) !important;
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            padding: 0.5rem 1rem !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dadl-primary) 0%, var(--dadl-primary-light) 100%);
+            color: white;
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            color: var(--dadl-text);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .text-primary-custom {
+            color: var(--dadl-text) !important;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--dadl-primary);
+        }
+
+        .btn-primary {
+            background-color: var(--dadl-primary);
+            border-color: var(--dadl-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dadl-primary-dark);
+            border-color: var(--dadl-primary-dark);
+        }
+
+        .footer {
+            background-color: var(--dadl-primary);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .admin-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            background-color: var(--dadl-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .contact-info {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--dadl-primary);
+        }
+
+        .contact-info h6 {
+            color: var(--dadl-text);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .text-primary-custom {
+           color: #420303;
+        }
+
+        .card {
+            background-color: #f8f4f4; /* Light warm tint */
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 220px;
+
+            /* Shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+
+            /* Smooth hover effect (optional) */
+            transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+
+        .icon-link i {
+            font-size: 1.2rem;
+            color: inherit;
+            transition: 0.2s;
+        }
+
+        .icon-link:hover i {
+        color: #b52b2b;  /* Subtle red accent on hover */
+        transform: scale(1.1);
+        }
+
+        /* Load Academicons if not already enabled */
+        @import url("https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css");
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <i class="fas fa-brain me-2"></i>DADL Lab
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#professor">Professor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#students">Students</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section / Project Title -->
+    <section class="section hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">{{ project.title }}</h1>
+            <p class="hero-subtitle">{{ project.topic }}</p>
+        </div>
+    </section>
+
+    <!-- Project Details -->
+    <section class="section container">
+        <!-- Overview with floated image -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Overview</h3>
+
+                {% if project.image1 %}
+                <a href="{{ url_for('static', filename='uploads/projects/' + project.image1) }}" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    <img src="{{ url_for('static', filename='uploads/projects/' + project.image1) }}" 
+                        alt="{{ project.title }}" 
+                        class="img-fluid rounded shadow me-3 mb-3 float-md-end" 
+                        style="max-width: 300px;">
+                </a>
+                {% endif %}
+
+                <p>{{ project.overview }}</p>
+                <p><strong>Status:</strong> {{ project.status }}</p>
+                <p><strong>Start Date:</strong> {{ project.start_date }}</p>
+                {% if project.end_date %}
+                    <p><strong>End Date:</strong> {{ project.end_date }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Modal for large image -->
+        {% if project.image1 %}
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-body p-0">
+                <img src="{{ url_for('static', filename='uploads/projects/' + project.image1) }}" 
+                    alt="{{ project.title }}" class="img-fluid w-100">
+            </div>
+            </div>
+        </div>
+        </div>
+        {% endif %}
+       
+        <div class="row mt-4">
+    {% for img in additional_images %}
+        <div class="col-md-4 mb-3">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#additionalImageModal{{ loop.index0 }}">
+                <img src="{{ url_for('static', filename='uploads/projects/' + img) }}" 
+                     alt="{{ project.title }} image {{ loop.index }}" 
+                     class="img-fluid rounded shadow">
+            </a>
+        </div>
+
+        <!-- Modal for this image -->
+        <div class="modal fade" id="additionalImageModal{{ loop.index0 }}" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-body p-0">
+                <img src="{{ url_for('static', filename='uploads/projects/' + img) }}" 
+                     alt="{{ project.title }} image {{ loop.index }}" 
+                     class="img-fluid w-100">
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+</div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p>&copy; 2025 DADL Lab. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

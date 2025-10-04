@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DADL Lab - Data Analysis and Deep Learning Laboratory</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.3/css/academicons.min.css">
+
+    <style>
+        :root {
+            --dadl-primary: #420303;
+            --dadl-primary-dark: #330202;
+            --dadl-primary-light: #661010;
+            --dadl-text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        .navbar {
+            background-color: var(--dadl-primary) !important;
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            padding: 0.5rem 1rem !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+            background-color: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--dadl-primary) 0%, var(--dadl-primary-light) 100%);
+            color: white;
+            padding: 3rem 0 2rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            color: var(--dadl-text);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .text-primary-custom {
+            color: var(--dadl-text) !important;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--dadl-primary);
+        }
+
+        .btn-primary {
+            background-color: var(--dadl-primary);
+            border-color: var(--dadl-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dadl-primary-dark);
+            border-color: var(--dadl-primary-dark);
+        }
+
+        .footer {
+            background-color: var(--dadl-primary);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        .admin-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .admin-btn {
+            background-color: var(--dadl-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .contact-info {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--dadl-primary);
+        }
+
+        .contact-info h6 {
+            color: var(--dadl-text);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .text-primary-custom {
+           color: #420303;
+        }
+
+        .card {
+            background-color: #f8f4f4; /* Light warm tint */
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 220px;
+
+            /* Shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+
+            /* Smooth hover effect (optional) */
+            transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+
+        .icon-link i {
+            font-size: 1.2rem;
+            color: inherit;
+            transition: 0.2s;
+        }
+
+        .icon-link:hover i {
+        color: #b52b2b;  /* Subtle red accent on hover */
+        transform: scale(1.1);
+        }
+
+        .see-more-btn {
+            background-color: transparent;
+            color: #420303;
+            border: 1px solid #420303;
+            transition: all 0.3s ease;
+        }
+
+        .see-more-btn:hover {
+            background-color: #420303;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Load Academicons if not already enabled */
+        @import url("https://cdn.jsdelivr.net/npm/academicons@1.9.3/css/academicons.min.css");
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-brain me-2"></i>DADL Lab
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#professor">Professor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#students">Students</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">DADL Lab</h1>
+            <p class="hero-subtitle">Data Analysis and Deep Learning Laboratory</p>
+            <p class="fs-6">Our lab is focused on developing innovative machine learning algorithms and data analysis techniques to solve real-world problems across diverse domains.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+    <div class="container">
+        <h2 class="section-title">About Our Lab</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="text-primary-custom mb-3">Mission</h3>
+                <p>{{ lab_info.mission or 'We are dedicated to advancing the field of artificial intelligence through cutting-edge research, innovative methodologies, and collaborative partnerships.' }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="text-primary-custom mb-3">Research Areas</h3>
+                {% if lab_info.research_areas %}
+                    {% for area in lab_info.research_areas.split(',') %}
+                        <span class="badge me-2 mb-2" style="background-color: #022e02;">{{ area.strip() }}</span>
+                    {% endfor %}
+                {% else %}
+                    <span class="badge me-2 mb-2" style="background-color: #022e02;">Deep Learning</span>
+                    <span class="badge me-2 mb-2" style="background-color: #022e02;">Computer Vision</span>
+                    <span class="badge me-2 mb-2" style="background-color: #022e02;">Natural Language Processing</span>
+                    <span class="badge me-2 mb-2" style="background-color: #022e02;">Machine Learning</span>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if lab_info.focus_statement %}
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3 class="text-primary-custom mb-3">Focus</h3>
+                <p>{{ lab_info.focus_statement }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+    <!-- Professor Section -->
+    <section id="professor" class="section">
+        <div class="container">
+            <h2 class="section-title">Principal Investigator</h2>
+            <div class="card p-4">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 text-center">
+                        {% if professor.photo %}
+                            <img src="{{ url_for('static', filename='uploads/professor/' + professor.photo) }}" 
+                                 class="rounded-circle mx-auto d-flex align-items-center justify-content-center" 
+                                 style="width: 200px; height: 200px; object-fit: cover;"
+                                 alt="{{ professor.name }}">
+                        {% else %}
+                            <div class="bg-light rounded-circle mx-auto d-flex align-items-center justify-content-center" 
+                                 style="width: 200px; height: 200px;">
+                                <i class="fas fa-user fa-5x text-secondary"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-9">
+                        <h3 class="text-primary-custom mb-2">{{ professor.name or 'Dr. John Smith' }}</h3>
+                        <h5 class="text-muted mb-3">{{ professor.title or 'Professor and Lab Director' }}</h5>
+                        <p class="mb-3">{{ professor.bio or 'Principal Investigator with expertise in machine learning and artificial intelligence.' }}</p>
+                        
+                        <h4>Education</h4>
+                        <ul class="list-unstyled">
+                        {% for entry in professor.education.split('\n') %}
+                            <li class="mb-2">{{ entry }}</li>
+                        {% endfor %}
+                        </ul>
+                        <div class="mb-3">
+                            <h4>Experience</h4>
+                            <p>{{ professor.experience or 'Professor at University, Associate Professor, Research Scientist' }}</p>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="contact-info mb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6>Email</h6>
+                                    <p class="mb-1">{{ professor.email or 'prof@university.edu' }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Office</h6>
+                                    <p class="mb-1">{{ professor.office or 'Room 301, CS Building' }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Office Hours</h6>
+                                    <p class="mb-1">Mon/Wed 2-4 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-3">
+                            {% if professor.linkedin %}
+                                <a href="{{ professor.linkedin }}" target="_blank" class="icon-link" style="color: #0A66C2;">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            {% endif %}
+                            {% if professor.google_scholar %}
+                                <a href="{{ professor.google_scholar }}" target="_blank" class="icon-link" style="color: #000;">
+                                    <i class="ai ai-google-scholar"></i>
+                                </a>
+                            {% endif %}
+                            {% if professor.website %}
+                                <a href="{{ professor.website }}" target="_blank" class="icon-link" style="color: #420303;">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            {% endif %}
+                            {% if professor.email %}
+                                <a href="mailto:{{ professor.email }}" class="icon-link" style="color: #D44638;">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Students Section -->
+<section id="students" class="section">
+  <div class="container">
+    <h2 class="section-title text-center mb-5">Lab Members</h2>
+
+    <!-- Current Members (PhD + Masters Combined) -->
+    <div class="mb-5">
+      <h3 class="text-primary-custom mb-4">Current Members</h3>
+      <div class="row">
+        {% for student in current_phd + current_masters %}
+          <div class="col-lg-6 mb-4">
+            <div class="card p-3 shadow-sm" style="border-left: 5px solid #420303;">
+              <div class="d-flex align-items-start">
+                <!-- Profile Photo -->
+                <img
+                src="{{ url_for('static', filename='uploads/students/' + student.photo) if student.photo else url_for('static', filename='uploads/students/default_image.jpg') }}"
+                alt="{{ student.name }}"
+                class="rounded-circle me-3"
+                style="width: 100px; height: 100px; object-fit: cover; border: 3px solid #420303;"
+                />
+
+
+                <div class="flex-grow-1">
+                  <h5 class="mb-1 text-primary-custom">{{ student.name }}</h5>
+
+                  <!-- Role Tag -->
+                  {% if student in current_phd %}
+                <span class="badge" style="background-color: #2e1802;">PhD Student</span>
+                {% else %}
+                <span class="badge" style="background-color: #022e02;">Masters Student</span>
+                {% endif %}
+
+                  <p class="mt-2 mb-1"><strong>Research:</strong> {{ student.research_focus or 'Deep Learning' }}</p>
+                  <p class="text-muted mb-1"><i class="fas fa-university me-1"></i>{{ student.school }}</p>
+                  <p class="text-muted mb-2"><i class="fas fa-calendar me-1"></i>
+                    {% if student.is_current %} {{ student.start_date or 'Fall 2024' }} – Present {% else %} {{ student.start_date }} – {{ student.end_date }} {% endif %}
+                  </p>
+
+                  <!-- Social Icons -->
+                  <div class="d-flex gap-3">
+                    {% if student.linkedin %}
+                        <a href="{{ student.linkedin }}" target="_blank" class="icon-link" style="color: #0A66C2;">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    {% endif %}
+                    {% if student.google_scholar %}
+                        <a href="{{ student.google_scholar }}" target="_blank" class="icon-link" style="color: #000;">
+                            <i class="ai ai-google-scholar"></i>
+                        </a>
+                    {% endif %}
+                    {% if student.website %}
+                        <a href="{{ student.website }}" target="_blank" class="icon-link" style="color: #420303;">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                    {% endif %}
+                    {% if student.email %}
+                        <a href="mailto:{{ student.email }}" class="icon-link" style="color: #D44638;">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    {% endif %}
+                </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Alumni Section -->
+    <div class="mb-5">
+  <h3 class="text-primary-custom mb-4">Alumni</h3>
+  <div class="row">
+    {% for student in former_phd + former_masters %}
+      <div class="col-lg-6 mb-4">
+        <div class="card p-3 shadow-sm" style="background-color: #f8f4f4; border-radius: 8px;">
+          
+          <!-- Name & Degree Badge -->
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="text-primary-custom mb-0">{{ student.name }}</h5>
+            {% if student in former_phd %}
+                <span class="badge" style="background-color: #2e1802;">PhD Student</span>
+                {% else %}
+                <span class="badge" style="background-color: #022e02;">Masters Student</span>
+                {% endif %}
+
+          </div>
+
+          <!-- Thesis -->
+          <p><strong>Thesis:</strong> {{ student.thesis_title or 'Deep Learning Research' }}</p>
+
+          <!-- Current Position -->
+          <p><strong>Current Position:</strong> {{ student.current_work or 'Research Scientist' }}</p>
+
+          <!-- Timeline -->
+          <p>
+            <small>
+              <i class="fas fa-calendar me-1"></i>{{ student.start_date }} – {{ student.end_date }}
+            </small>
+          </p>
+
+          <!-- Icon Links -->
+          <div class="d-flex gap-3">
+            {% if student.linkedin %}
+              <a href="{{ student.linkedin }}" 
+                 target="_blank" 
+                 class="text-decoration-none icon-link" 
+                 style="color: #0A66C2;">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            {% endif %}
+            {% if student.google_scholar %}
+              <a href="{{ student.google_scholar }}" 
+                 target="_blank" 
+                 class="text-decoration-none icon-link" 
+                 style="color: #000;">
+                <i class="ai ai-google-scholar"></i>
+              </a>
+            {% endif %}
+            {% if student.email %}
+              <a href="mailto:{{ student.email }}" 
+                 class="text-decoration-none icon-link" 
+                 style="color: #D44638;">
+                <i class="fas fa-envelope"></i>
+              </a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+  </div>
+</section>
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">Research Projects</h2>
+
+        <!-- Ongoing Projects -->
+        <h3 class="text-primary-custom mb-4">Ongoing Projects</h3>
+        <div class="row">
+        {% for project in ongoing_projects %}
+            <div class="col-md-6 mb-4">
+    <div class="card shadow-sm project-card" style="background-color: #f8f4f4; border-radius: 8px; overflow: hidden;">
+        <!-- Image -->
+        <a href="{{ url_for('project_detail', project_id=project.id) }}">
+            <img 
+                src="{% if project.image1 %}{{ url_for('static', filename='uploads/projects/' + project.image1) }}{% else %}{{ url_for('static', filename='default-project.png') }}{% endif %}" 
+                alt="{{ project.title }}" 
+                class="img-fluid" 
+                style="width: 100%; height: 220px; object-fit: cover;"
+            />
+        </a>
+
+        <div class="card-body">
+            <!-- Title & Status -->
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="text-primary-custom mb-0">{{ project.title }}</h5>
+                <span class="badge bg-success">{{ project.status }}</span>
+            </div>
+
+            <!-- Topic -->
+            <p class="mb-2"><strong>Topic:</strong> {{ project.topic or 'AI Research' }}</p>
+
+            <!-- Overview (2 lines max) -->
+            <p class="text-muted mb-2" style="
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            ">
+                {{ project.overview }}
+            </p>
+
+            <!-- See More Button -->
+            <a href="{{ url_for('project_detail', project_id=project.id) }}" class="btn btn-sm see-more-btn">See More</a>
+            <!-- Timeline -->
+            <small class="text-muted d-block mt-2"><i class="fas fa-calendar"></i> {{ project.start_date or 'Started 2023' }}</small>
+        </div>
+    </div>
+</div>
+
+        {% endfor %}
+        </div>
+
+        <!-- Completed Projects -->
+        <h3 class="text-primary-custom mb-4 mt-5">Completed Projects</h3>
+        <div class="row">
+        {% for project in completed_projects %}
+            <div class="col-md-6 mb-4">
+                <a href="{{ url_for('project_detail', project_id=project.id) }}" class="text-decoration-none text-dark">
+                    <div class="card shadow-sm p-3 project-card" style="background-color: #f8f4f4; border-radius: 8px;">
+                        <img 
+                            src="{{ url_for('static', filename='uploads/projects/' + project.image) if project.image else url_for('static', filename='default-project.png') }}" 
+                            alt="{{ project.title }}" 
+                            class="img-fluid rounded mb-3" 
+                            style="height: 180px; object-fit: cover;"
+                        />
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="text-primary-custom mb-0">{{ project.title }}</h5>
+                            <span class="badge bg-secondary">{{ project.status }}</span>
+                        </div>
+
+                        <p><strong>Topic:</strong> {{ project.topic or 'AI Research' }}</p>
+                        <p class="text-muted text-truncate" style="-webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+                            {{ project.overview }}
+                        </p>
+
+                        <small class="text-muted">
+                            <i class="fas fa-calendar"></i> {{ project.start_date }} – {{ project.end_date }}
+                        </small>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+    <!-- Publications Section -->
+    <section id="publications" class="section">
+    <div class="container">
+        <h2 class="section-title">Publications</h2>
+        
+        <div class="text-center mb-4">
+            <a href="{{ professor.google_scholar or '#' }}" target="_blank" class="btn btn-primary btn-lg">
+                <i class="fas fa-graduation-cap me-2"></i>View Full Google Scholar Profile
+            </a>
+        </div>
+        
+        {% if featured_publications %}
+            <h4 class="mb-3">Featured Publications</h4>
+            {% for pub in featured_publications %}
+                <div class="card p-4 mb-3">
+                    <h5 class="text-primary-custom">{{ pub.title }}</h5>
+                    <p><strong>{{ pub.authors }}</strong></p>
+                    <p class="text-muted">{{ pub.venue or 'Conference' }} • {{ pub.year or '2024' }}
+                        {% if pub.citations > 0 %}
+                            • <i class="fas fa-quote-right"></i> {{ pub.citations }} citations
+                        {% endif %}
+                    </p>
+                    <div>
+                        {% if pub.url %}
+                        <a href="{{ pub.url }}" target="_blank" class="btn btn-outline-primary btn-sm me-2">
+                            <i class="fas fa-file-pdf me-1"></i>Paper
+                        </a>
+                        {% endif %}
+                        {% if pub.google_scholar_url %}
+                        <a href="{{ pub.google_scholar_url }}" target="_blank" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-graduation-cap me-1"></i>Scholar
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center text-muted">No featured publications yet. Check our Google Scholar profile for all publications.</p>
+        {% endif %}
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <h5><i class="fas fa-brain me-2"></i>DADL Lab</h5>
+            <p>Data Analysis and Deep Learning Laboratory</p>
+            <p>© 2024 DADL Lab. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Button -->
+    <div class="admin-float">
+        <a href="{{ url_for('admin_login') }}" class="admin-btn" title="Admin">
+            <i class="fas fa-cog"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Scroll to top on page load/reload
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active nav item based on scroll position
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

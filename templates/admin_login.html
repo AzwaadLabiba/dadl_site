@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DADL Lab - Admin Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+               body {
+            background: linear-gradient(135deg, #420303 0%, #661010 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            padding: 3rem 2.5rem;
+            border-radius: 1rem;
+            background-color: #ffffff;
+            box-shadow: 0 1rem 3rem rgba(66, 3, 3, 0.3);
+            margin: auto;
+            position: relative;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #420303;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #420303 0%, #661010 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(66, 3, 3, 0.3);
+        }
+
+        .login-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .form-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #420303;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-control {
+            font-size: 1.1rem;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #420303;
+            box-shadow: 0 0 0 0.2rem rgba(66, 3, 3, 0.25);
+        }
+
+        .btn-login {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #420303 0%, #661010 100%);
+            border: none;
+            border-radius: 0.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #330202 0%, #550808 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 0.5rem 1rem rgba(66, 3, 3, 0.4);
+            color: white;
+        }
+
+        .alert {
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-home a {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-home a:hover {
+            color: #420303;
+        }
+
+        .status-info {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #420303;
+        }
+
+        .btn-success {
+            background-color: #420303;
+            border-color: #420303;
+        }
+
+        .btn-success:hover {
+            background-color: #330202;
+            border-color: #330202;
+        }
+
+        .btn-outline-secondary {
+            color: #420303;
+            border-color: #420303;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #420303;
+            border-color: #420303;
+            color: white;
+        }
+
+        .alert-danger {
+            background-color: rgba(66, 3, 3, 0.1);
+            border-color: #420303;
+            color: #420303;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .alert-info {
+            background-color: rgba(66, 3, 3, 0.05);
+            border-color: #420303;
+            color: #420303;
+        }
+
+        .fa-spinner {
+            color: white !important;
+        }
+
+        .debug-info {
+            background-color: #fff3cd; 
+            border-radius: 0.5rem; 
+            font-size: 0.9rem;
+            border: 1px solid #420303;
+        }
+
+        .debug-info a {
+            color: #420303;
+            text-decoration: none;
+        }
+
+        .debug-info a:hover {
+            color: #330202;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+            
+            .login-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .btn-login.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-login.loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 2px solid transparent;
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="login-container">
+                    <div class="login-header">
+                        <div class="login-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h2>DADL Lab</h2>
+                        <p class="text-muted">Data Analysis & Deep Learning</p>
+                    </div>
+
+                    <!-- Login Status Info -->
+                    {% if current_user.is_authenticated %}
+                        <div class="status-info">
+                            <h5><i class="fas fa-check-circle text-success"></i> Already Logged In</h5>
+                            <p class="mb-2">Welcome back, <strong>{{ current_user.name }}</strong>!</p>
+                            <div class="d-grid gap-2">
+                                <a href="{{ url_for('admin.index') }}" class="btn btn-success">
+                                    <i class="fas fa-tachometer-alt"></i> Go to Admin Panel
+                                </a>
+                                <a href="{{ url_for('admin_logout') }}" class="btn btn-outline-secondary">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Flash Messages -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                        {% if category == 'error' %}
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                        {% elif category == 'success' %}
+                                            <i class="fas fa-check-circle me-2"></i>
+                                        {% elif category == 'info' %}
+                                            <i class="fas fa-info-circle me-2"></i>
+                                        {% endif %}
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <!-- Login Form -->
+                        <form method="POST" id="loginForm">
+                            <div class="mb-4">
+                                <label for="username" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Username
+                                </label>
+                                <input type="text" class="form-control" id="username" name="username" 
+                                       placeholder="Enter your username" required autocomplete="username">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock me-2"></i>Password
+                                </label>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                       placeholder="Enter your password" required autocomplete="current-password">
+                            </div>
+                            
+                            <div class="d-grid gap-2 mb-3">
+                                <button type="submit" class="btn btn-login" id="loginBtn">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+
+                    <div class="back-home">
+                        <a href="{{ url_for('home') }}">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Lab Website
+                        </a>
+                    </div>
+
+                    <!-- Debug Info (only in development)
+                    {% if config.DEBUG %}
+                        <div class="mt-4 p-3 debug-info">
+                            <strong>Development Mode:</strong><br>
+                            Admin Panel: <a href="{{ url_for('admin.index') }}">/admin/</a><br>
+                            Logout: <a href="{{ url_for('admin_logout') }}">/admin-logout</a><br>
+                            Status: <a href="{{ url_for('admin_status') }}">/admin-status</a><br>
+                            <small class="text-muted">Default: admin / changeme123</small>
+                        </div>
+                    {% endif %} -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Focus on first input on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            var usernameField = document.getElementById('username');
+            if (usernameField) {
+                usernameField.focus();
+            }
+        });
+
+        // Add loading animation on form submit
+        var loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function() {
+                var loginBtn = document.getElementById('loginBtn');
+                if (loginBtn) {
+                    loginBtn.classList.add('loading');
+                    loginBtn.disabled = true;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+<style>
+    .admin-welcome {
+        background: linear-gradient(135deg, #420303 0%, #661010 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: white;
+        border-left: 4px solid #420303;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #420303;
+    }
+    
+    .logout-btn {
+        background-color: #dc3545;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 1rem;
+    }
+    
+    .logout-btn:hover {
+        background-color: #c82333;
+        color: white;
+        text-decoration: none;
+    }
+    
+    .quick-links {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .quick-link {
+        display: inline-block;
+        background: #420303;
+        color: white;
+        padding: 0.5rem 1rem;
+        margin: 0.25rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+    }
+    
+    .quick-link:hover {
+        background: #330202;
+        color: white;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <!-- Welcome Section -->
+    <div class="admin-welcome">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1><i class="fas fa-brain me-2"></i>DADL Lab Admin</h1>
+                <p class="mb-0">Welcome back, <strong>{{ current_user.name }}</strong>!</p>
+                <small>Manage your lab website content</small>
+            </div>
+            <div>
+                <a href="{{ url_for('home') }}" class="btn btn-light me-2" target="_blank">
+                    <i class="fas fa-external-link-alt me-1"></i>View Website
+                </a>
+                <a href="{{ logout_url }}" class="logout-btn">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">{{ current_students }}</div>
+                <div class="text-muted">Current Students</div>
+                <small>{{ total_students }} total students</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">{{ active_projects }}</div>
+                <div class="text-muted">Active Projects</div>
+                <small>{{ total_projects }} total projects</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">1</div>
+                <div class="text-muted">Lab Profile</div>
+                <small>Professor information</small>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="text-muted">Featured Pubs</div>
+                <small>Top publications</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="quick-links">
+        <h5><i class="fas fa-rocket me-2"></i>Quick Actions</h5>
+        <a href="/admin/student/" class="quick-link">
+            <i class="fas fa-user-plus me-1"></i>Add Student
+        </a>
+        <a href="/admin/project/" class="quick-link">
+            <i class="fas fa-project-diagram me-1"></i>Add Project
+        </a>
+        <a href="/admin/publication/" class="quick-link">
+            <i class="fas fa-file-alt me-1"></i>Add Publication
+        </a>
+        <a href="/admin/professor/" class="quick-link">
+            <i class="fas fa-user-edit me-1"></i>Edit Profile
+        </a>
+        <a href="/admin/labinfo/" class="quick-link">
+            <i class="fas fa-cog me-1"></i>Lab Settings
+        </a>
+    </div>
+
+    <!-- Instructions -->
+    <div class="alert alert-info mt-3">
+        <h6><i class="fas fa-info-circle me-2"></i>Getting Started</h6>
+        <ul class="mb-0">
+            <li><strong>Update your profile:</strong> Go to Professor Profile to add your photo and information</li>
+            <li><strong>Add students:</strong> Use the Students section to add current and former lab members</li>
+            <li><strong>Manage projects:</strong> Add ongoing and completed research projects</li>
+            <li><strong>Feature publications:</strong> Mark your top 5 papers as "featured" to show on the website</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
