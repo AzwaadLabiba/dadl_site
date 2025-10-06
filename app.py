@@ -241,17 +241,11 @@ def create_default_data():
 # ============================================================================
 if __name__ == '__main__':
     with app.app_context():
-        # For first run only - remove the database deletion after initial setup
-        db_path = 'dadl_lab.db'
-        if os.path.exists(db_path):
-            response = input("Database exists. Delete and recreate? (y/n): ")
-            if response.lower() == 'y':
-                os.remove(db_path)
-                print("Old database removed.")
-        
-        # Create tables
+        # Only create tables, don't delete database
         db.create_all()
         create_default_data()
+    
+    app.run(debug=True)
     
     print("\n" + "="*60)
     print("DADL Lab Website Starting...")
